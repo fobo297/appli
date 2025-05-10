@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Simple Application</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Styles CSS personnalisés pour améliorer l'apparence (optionnel avec Tailwind CSS) */
+        body {
+            font-family: 'Inter', sans-serif; /* Utilisation de la police Inter */
+        }
+        .container {
+            max-width: 800px; /* Augmentation de la largeur maximale pour les grands écrans */
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center; /* Centrage du contenu principal */
+        }
+        h1 {
+            font-size: 2.5rem; /* Augmentation de la taille de la police du titre */
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #4f46e5; /* Couleur violette (similaire à Tailwind) */
+        }
+        p {
+            font-size: 1.1rem; /* Augmentation légère de la taille de la police du paragraphe */
+            color: #d1d5db;
+            margin-bottom: 2rem;
+        }
+        .button {
+            padding: 0.75rem 1.5rem; /* Ajustement du padding du bouton */
+            font-size: 1.1rem; /* Augmentation de la taille de la police du bouton */
+            font-weight: 600;
+            border-radius: 0.5rem; /* Arrondi des bords du bouton */
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s; /* Ajout de transitions */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+            border: none; /* Suppression de la bordure par défaut */
+        }
+        .primary-button {
+            background-image: linear-gradient(to right, #6d28d9, #4f46e5); /* Dégradé violet */
+        }
+        .primary-button:hover {
+            background-image: linear-gradient(to right, #7e22ce, #5b21b6); /* Légèrement plus foncé au survol */
+            transform: translateY(-2px) scale(1.05); /* Légère translation et échelle au survol */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Augmentation de l'ombre au survol */
+        }
+        .outline-button {
+            background-color: transparent;
+            border: 2px solid #4f46e5; /* Bordure violette */
+            color: #4f46e5;
+        }
+        .outline-button:hover {
+            background-color: rgba(79, 70, 229, 0.1); /* Fond violet très clair au survol */
+            color: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background-color: #1e293b; /* Couleur gris foncé (similaire à dark) */
+            border-radius: 0.75rem; /* Arrondi des bords de la carte */
+            padding: 2rem;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
+            margin-bottom: 2rem; /* Ajout de marge en bas */
+            text-align: left; /* Alignement du texte à gauche dans les cartes */
+            border: 1px solid #334155; /* Ajout d'une bordure discrète */
+        }
+        .card-title {
+            font-size: 1.5rem; /* Taille de police plus grande pour les titres de carte */
+            font-weight: bold;
+            color: #fff; /* Titre en blanc */
+            margin-bottom: 1rem;
+        }
+        .card-description {
+            color: #d1d5db;
+            line-height: 1.7; /* Espacement des lignes plus grand pour la lisibilité */
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Par défaut, une seule colonne */
+            gap: 2rem; /* Augmentation de l'espacement entre les éléments de la grille */
+            margin-top: 1.5rem;
+        }
+        /* Media query pour passer à deux colonnes sur les écrans moyens et plus grands */
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        /* Media query pour passer à trois colonnes sur les écrans larges */
+        @media (min-width: 1280px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .feature-card {
+            background-color: #2d3748; /* Couleur gris légèrement plus clair pour les cartes de fonctionnalités */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Ajout de transitions */
+            border: 1px solid #4a5568; /* Bordure légèrement plus visible */
+        }
+        .feature-card:hover {
+            transform: translateY(-4px) scale(1.03); /* Effet de survol plus prononcé */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25); /* Ombre plus forte au survol */
+        }
+        .feature-card-title {
+            font-size: 1.25rem; /* Augmentation de la taille de la police */
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.75rem;
+            display: flex; /* Utilisation de flexbox pour l'alignement de l'icône et du titre */
+            align-items: center; /* Alignement vertical */
+            gap: 0.75rem; /* Espacement entre l'icône et le titre */
+        }
+        .feature-card-description {
+            color: #d1d5db;
+            line-height: 1.7;
+        }
+        .icon {
+            width: 2rem; /* Taille fixe pour les icônes */
+            height: 2rem;
+            color: #6366f1; /* Couleur violette pour les icônes */
+        }
+        .form-container {
+            background-color: #2d3748;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            text-align: left; /* Alignement du texte à gauche dans le formulaire */
+            border: 1px solid #4a5568;
+        }
+        .form-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+        .form-description {
+            color: #d1d5db;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+        .input, .textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #4a5568;
+            background-color: #374151; /* Couleur légèrement plus claire pour les champs */
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.2s ease; /* Transition pour la bordure */
+        }
+        .input:focus, .textarea:focus {
+            outline: none;
+            border-color: #6366f1; /* Bordure violette au focus */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15); /* Ombre violette au focus */
+        }
+        .textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            color: white;
+            cursor: pointer;
+            transition: background-image 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            background-image: linear-gradient(to right, #8b5cf6, #6d28d9); /* Dégradé violet */
+            border: none;
+            box-shadow: 0 5px 7px rgba(0, 0, 0, 0.15);
+        }
+        .submit-button:hover {
+            background-image: linear-gradient(to right, #a855f7, #804ed9); /* Dégradé légèrement plus clair au survol */
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 7px 9px rgba(0, 0, 0, 0.2);
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #4a5568;
+            color: #d1d5db;
+            font-size: 0.9rem;
+        }
+        .heart-icon {
+            color: #f43f5e; /* Couleur rouge pour l'icône de coeur */
+            display: inline-block; /* Pour pouvoir ajuster la taille et la marge */
+            width: 1rem;
+            height: 1rem;
+            margin: 0 0.25rem; /* Ajout de marge autour de l'icône */
+        }
+
+        .alert {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            animation: slideIn 0.3s ease-out, slideOut 0.3s ease-in 4.7s forwards;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border: 2px solid;
+        }
+        .alert-success {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border-color: #16a34a;
+        }
+        .alert-error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border-color: #ef4444;
+        }
+        .alert-icon {
+            margin-right: 0.75rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            display: inline-block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900"> <div class="container">
+        <h1>Ma Simple Application</h1>
+        <p>Une application web simple développée avec HTML, CSS et JavaScript.</p>
+        <div class="mt-8 flex justify-center gap-4">
+            <a href="https://github.com/votre-nom-utilisateur/votre-repo" target="_blank" rel="noopener noreferrer">
+                <button class="button primary-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-4 w-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.3-.87 2.23a4 4 0 0 1-3.13 1.07V22"></path></svg>
+                    Voir sur GitHub
+                </button>
+            </a>
+            <a href="#">
+                <button class="button outline-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-4 w-4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    Contribuer
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="bg-gray-800 py-8">
+        <div class="container">
+            <h2 class="text-3xl font-bold text-white mb-6">Fonctionnalités</h2>
+            <div class="grid">
+                <div class="feature-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M13 2v8h8M21 16H13M8 21H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="10 9 9 9 5.5 3.5 9 3.5 9 7"></polyline><path d="M8 21a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2z"></path></svg>
+                    <h3 class="feature-card-title">Interface Moderne</h3>
+                    <p class="feature-card-description">Design élégant et intuitif avec des animations fluides.</p>
+                </div>
+                <div class="feature-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M3 9h18"></path><path d="M9 17v-4c0-1.333-.8-4-3-4"></path><path d="M15 17v-4c0-1.333.8-4 3-4"></path></svg>
+                    <h3 class="feature-card-title">Composants Réutilisables</h3>
+                    <p class="feature-card-description">Utilisation de composants modulaires pour une maintenance facile.</p>
+                </div>
+                <div class="feature-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path><path d="M12 2v9"></path><path d="M12 17h5"></path></svg>
+                    <h3 class="feature-card-title">Formulaire Interactif</h3>
+                    <p class="feature-card-description">Formulaire de contact avec validation et retour d'information.</p>
+                </div>
+                <div class="feature-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0-.33-1.82l-3.8-3.8a1.65 1.65 0 0 0-1.82-.33H9a1.65 1.65 0 0 0-1.82.33l-3.8 3.8a1.65 1.65 0 0 0-.33 1.82V18a1.65 1.65 0 0 0 .33 1.82l3.8 3.8a1.65 1.65 0 0 0 1.82.33h3.5a1.65 1.65 0 0 0 1.82-.33l3.8-3.8a1.65 1.65 0 0 0 .33-1.82v-2.5z"></path><path d="M12 15v3"></path><path d="M12 6v3"></path></svg>
+                    <h3 class="feature-card-title">Thème Personnalisable</h3>
+                    <p class="feature-card-description">Possibilité de changer le thème de l'application.</p>
+                </div>
+                <div class="feature-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <h3 class="feature-card-title">Profil Utilisateur</h3>
+                    <p class="feature-card-description">Page de profil utilisateur avec des informations dynamiques.</p>
+                </div>
+                <div class="feature-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="m4 4 2 16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l2-16"></path><polyline points="7 11 12 6 17 11"></polyline></svg>
+                    <h3 class="feature-card-title">Messages</h3>
+                    <p class="feature-card-description">Système de messagerie simple pour communiquer.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            <h2 class="form-title">Formulaire de Contact</h2>
+            <p class="form-description">N'hésitez pas à nous contacter en utilisant le formulaire ci-dessous :</p>
+            <form id="contactForm" class="form">
+                <div class="form-group">
+                    <label for="name" class="form-label">Nom</label>
+                    <input type="text" id="name" name="name" class="input" placeholder="Votre nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="input" placeholder="Votre email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" class="textarea" placeholder="Votre message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-4 w-4"><path d="M4 16V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path><polyline points="16 12 12 17 8 12"></polyline><line x1="12" y1="17" x2="12" y2="7"></line></svg>
+                    Envoyer le message
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        Developed with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="heart-icon"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> by You
+    </footer>
+
+    <script>
+        // Fonction pour afficher un message d'alerte
+        function showMessage(text, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = text;
+
+            const icon = document.createElement('svg');
+            icon.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            icon.setAttribute('width', '24');
+            icon.setAttribute('height', '24');
+            icon.setAttribute('viewBox', '0 0 24 24');
+            icon.setAttribute('fill', 'none');
+            icon.setAttribute('stroke', 'currentColor');
+            icon.setAttribute('stroke-width', '2');
+            icon.setAttribute('stroke-linecap', 'round');
+            icon.setAttribute('stroke-linejoin', 'round');
+            icon.classList.add('alert-icon');
+
+            if (type === 'success') {
+                icon.innerHTML = `<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path>`;
+            } else {
+                icon.innerHTML = `<circle cx="12" cy="12" r="10"></circle><path d="M15 9v6"></path><path d="M9 9v6"></path>`;
+            }
+            alertDiv.prepend(icon);
+
+            document.body.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // Gestion de la soumission du formulaire
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name === '' || email === '' || message === '') {
+                showMessage('Veuillez remplir tous les champs du formulaire.', 'error');
+                return;
+            }
+
+            // Validation de l'email (simple)
+            const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            if (!emailRegex.test(email)) {
+                showMessage('Veuillez entrer une adresse email valide.', 'error');
+                return;
+            }
+
+            // Ici, vous pouvez ajouter la logique pour envoyer les données du formulaire
+            // à un serveur, à un service de messagerie, etc.
+            console.log({ name, email, message }); // Pour l'exemple, on affiche les données dans la console
+
+            showMessage('Formulaire soumis avec succès !', 'success');
+
+            // Réinitialisation du formulaire
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        });
+    </script>
+</body>
+</html>
